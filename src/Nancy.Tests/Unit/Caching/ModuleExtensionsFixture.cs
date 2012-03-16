@@ -10,7 +10,7 @@ namespace Nancy.Tests.Unit.Caching
     public class ModuleExtensionsFixture
     {
         [Fact]
-        public static void CheckForIfNonMatch_should_return_not_modified_status_code_if_etag_matches_if_non_match_header()
+        public void CheckForIfNonMatch_should_return_not_modified_status_code_if_etag_matches_if_non_match_header()
         {
             // Given 
             var headers =
@@ -37,7 +37,7 @@ namespace Nancy.Tests.Unit.Caching
         }
 
         [Fact]
-        public static void CheckForIfNonMatch_should_not_change_the_status_code_if_etag_does_not_match_if_non_match_header()
+        public void CheckForIfNonMatch_should_not_change_the_status_code_if_etag_does_not_match_if_non_match_header()
         {
             // Given 
             var headers =
@@ -65,7 +65,7 @@ namespace Nancy.Tests.Unit.Caching
 
 
         [Fact]
-        public static void CheckForIfNonMatch_should_not_change_the_status_code_if_etag_is_absent()
+        public void CheckForIfNonMatch_should_not_change_the_status_code_if_etag_is_absent()
         {
             // Given 
             var headers =
@@ -92,7 +92,7 @@ namespace Nancy.Tests.Unit.Caching
         }
 
         [Fact]
-        public static void CheckForIfNonMatch_should_not_change_the_status_code_if_if_non_match_header_is_absent()
+        public void CheckForIfNonMatch_should_not_change_the_status_code_if_if_non_match_header_is_absent()
         {
             // Given 
             var headers = new Dictionary<string, IEnumerable<string>>();
@@ -114,7 +114,7 @@ namespace Nancy.Tests.Unit.Caching
         }
 
         [Fact]
-        public static void CheckForIfModifiedSince_should_return_not_modified_status_code_if_last_modified_matches_if_modified_since()
+        public void CheckForIfModifiedSince_should_return_not_modified_status_code_if_last_modified_matches_if_modified_since()
         {
             // Given 
             var headers =
@@ -141,7 +141,7 @@ namespace Nancy.Tests.Unit.Caching
         }
 
         [Fact]
-        public static void CheckForIfModifiedSince_should_not_change_the_status_code_if_last_modified_does_not_match_if_modified_since()
+        public void CheckForIfModifiedSince_should_not_change_the_status_code_if_last_modified_does_not_match_if_modified_since()
         {
             // Given 
             var headers =
@@ -168,7 +168,7 @@ namespace Nancy.Tests.Unit.Caching
         }
 
         [Fact]
-        public static void CheckForIfModifiedSince_should_not_change_the_status_code_if_last_modified_is_absent()
+        public void CheckForIfModifiedSince_should_not_change_the_status_code_if_last_modified_is_absent()
         {
             // Given 
             var headers =
@@ -195,7 +195,7 @@ namespace Nancy.Tests.Unit.Caching
         }
 
         [Fact]
-        public static void CheckForIfModifiedSince_should_not_change_the_status_code_if_last_modified_since_is_absent()
+        public void CheckForIfModifiedSince_should_not_change_the_status_code_if_last_modified_since_is_absent()
         {
             // Given 
             var headers = new Dictionary<string, IEnumerable<string>>();
@@ -217,7 +217,7 @@ namespace Nancy.Tests.Unit.Caching
         }
 
         [Fact]
-        public static void CheckForIfModifiedSince_should_not_change_the_status_code_if_last_modified_is_an_invalid_date()
+        public void CheckForIfModifiedSince_should_not_change_the_status_code_if_last_modified_is_an_invalid_date()
         {
             // Given 
             var headers =
