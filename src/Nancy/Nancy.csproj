@@ -144,6 +144,7 @@
     <Compile Include="ModelBinding\BindingConfig.cs" />
     <Compile Include="ModelBinding\PropertyBindingException.cs" />
     <Compile Include="HttpParser\HeaderParser.cs" />
+    <Compile Include="HttpParser\RequestLine.cs" />
     <Compile Include="NegotiatorExtensions.cs" />
     <Compile Include="Responses\EmbeddedFileResponse.cs" />
     <Compile Include="Diagnostics\IDiagnosticsProvider.cs" />
