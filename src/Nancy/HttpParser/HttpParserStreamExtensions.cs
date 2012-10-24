@@ -1,6 +1,7 @@
 ﻿namespace Nancy.HttpParser
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using Nancy.IO;
@@ -43,7 +44,7 @@
             }
 
             var headers = HeaderParser.Parse(stream);
-            string[] headerValues;
+            IEnumerable<string> headerValues;
             if (headers.TryGetValue("Host", out headerValues))
             {
                 url.HostName = headerValues.FirstOrDefault();
@@ -60,7 +61,7 @@
 
             var nestedRequestStream = new RequestStream(new HttpMultipartSubStream(stream, stream.Position, stream.Length), stream.Length - stream.Position, true);
 
-            var request = new Request(requestLine.Method, url, nestedRequestStream);
+            var request = new Request(requestLine.Method, url, nestedRequestStream, headers);
 
             return request;
         }

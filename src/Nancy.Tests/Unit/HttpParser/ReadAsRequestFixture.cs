@@ -1,6 +1,7 @@
 ﻿namespace Nancy.Tests.Unit.HttpParser
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Text;
     using Nancy.HttpParser;
@@ -52,6 +53,9 @@ Host: nancyfx.org
 
             result.Url.Scheme.ShouldEqual("http");
             result.Url.Path.ShouldEqual("/");
+
+            result.Headers.ShouldHaveCount(2);
+
             result.Body.Length.ShouldEqual(0L);
         }
 
@@ -74,6 +78,8 @@ asdf"));
 
             result.Url.Scheme.ShouldEqual("http");
             result.Url.Path.ShouldEqual("/");
+
+            result.Headers.ShouldHaveCount(3);
 
             using (var reader = new StreamReader(result.Body))
             {

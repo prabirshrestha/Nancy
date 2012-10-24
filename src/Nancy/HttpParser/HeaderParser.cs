@@ -11,7 +11,7 @@
         private const int CR = '\r';
         private const int LF = '\n';
 
-        public static IDictionary<string, string[]> Parse(Stream stream)
+        public static IDictionary<string, IEnumerable<string>> Parse(Stream stream)
         {
             var headers = new NameValueCollection();
             var bytes = ReadHeaderBytes(stream);
@@ -29,7 +29,7 @@
                 headers.Add(line.Substring(0, colonIndex), line.Substring(colonIndex + 1).TrimStart());
             }
 
-            var dict = new Dictionary<string, string[]>(headers.Keys.Count);
+            var dict = new Dictionary<string, IEnumerable<string>>(headers.Keys.Count);
             foreach (var key in headers.AllKeys)
             {
                 dict.Add(key, headers.GetValues(key));
