@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Text;
     using Nancy.HttpParser;
     using Xunit;
     using Xunit.Extensions;
@@ -31,6 +32,53 @@
             // when/then
             var exception = Assert.Throws<ArgumentNullException>(() => stream.ReadAsRequest(scheme: scheme));
             exception.ParamName.ShouldEqual("scheme");
+        }
+
+        [Fact]
+        public void RelativeUrlGetFixture()
+        {
+            // given
+            var rawRequestStream = new MemoryStream(Encoding.UTF8.GetBytes(@"GET / HTTP/1.1
+User-Agent: Fiddler
+Host: nancyfx.org
+
+"));
+
+            // when
+            var result = rawRequestStream.ReadAsRequest();
+
+            // then
+            result.Method.ShouldEqual("GET");
+
+            result.Url.Scheme.ShouldEqual("http");
+            result.Url.Path.ShouldEqual("/");
+            result.Body.Length.ShouldEqual(0L);
+        }
+
+        [Fact]
+        public void RelativeUrlPostFixture()
+        {
+            // given
+            var rawRequestStream = new MemoryStream(Encoding.UTF8.GetBytes(@"POST / HTTP/1.1
+User-Agent: Fiddler
+Host: nancyfx.org
+Content-Length: 4
+
+asdf"));
+
+            // when
+            var result = rawRequestStream.ReadAsRequest();
+
+            // then
+            result.Method.ShouldEqual("POST");
+
+            result.Url.Scheme.ShouldEqual("http");
+            result.Url.Path.ShouldEqual("/");
+
+            using (var reader = new StreamReader(result.Body))
+            {
+                reader.ReadToEnd().ShouldEqual("asdf");
+            }
         }
     }
 }
