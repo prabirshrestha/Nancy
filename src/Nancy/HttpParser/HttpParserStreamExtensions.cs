@@ -6,8 +6,18 @@
     using System.Linq;
     using Nancy.IO;
 
+    /// <summary>
+    /// Extensions for Http parsing.
+    /// </summary>
     public static class HttpParserStreamExtensions
     {
+        /// <summary>
+        /// Read the http stream as a <see cref="Request"/>.
+        /// </summary>
+        /// <param name="stream">The http stream.</param>
+        /// <param name="scheme">The url scheme.</param>
+        /// <param name="ip">The ip address.</param>
+        /// <returns>Returns the parse <see cref="Request"/>.</returns>
         public static Request ReadAsRequest(this Stream stream, string scheme = "http", string ip = null)
         {
             if (stream == null)
