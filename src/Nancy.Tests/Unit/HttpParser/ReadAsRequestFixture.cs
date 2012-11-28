@@ -1,7 +1,6 @@
 ﻿namespace Nancy.Tests.Unit.HttpParser
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Text;
     using Nancy.HttpParser;
@@ -57,6 +56,7 @@ Host: nancyfx.org
             result.Headers.ShouldHaveCount(2);
 
             result.Body.Length.ShouldEqual(0L);
+            result.UserHostAddress.ShouldBeNull();
         }
 
         [Fact]
@@ -80,11 +80,34 @@ asdf"));
             result.Url.Path.ShouldEqual("/");
 
             result.Headers.ShouldHaveCount(3);
+            result.UserHostAddress.ShouldBeNull();
 
             using (var reader = new StreamReader(result.Body))
             {
                 reader.ReadToEnd().ShouldEqual("asdf");
             }
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("127.0.0.1")]
+        [InlineData("192.168.1.5")]
+        public void Should_correctly_set_user_host_address(string ip)
+        {
+            // given
+            var rawRequestStream = new MemoryStream(Encoding.UTF8.GetBytes(@"POST / HTTP/1.1
+User-Agent: Fiddler
+Host: nancyfx.org
+Content-Length: 4
+
+asdf"));
+
+            // when
+            var result = rawRequestStream.ReadAsRequest(ip: ip);
+
+            // then
+            result.UserHostAddress.ShouldEqual(ip);
         }
     }
 }
