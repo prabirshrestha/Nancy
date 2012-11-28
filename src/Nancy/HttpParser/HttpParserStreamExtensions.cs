@@ -60,15 +60,6 @@
                 url.HostName = headerValues.FirstOrDefault();
             }
 
-            if (headers.TryGetValue("Expect", out headerValues))
-            {
-
-            }
-            else
-            {
-
-            }
-
             var nestedRequestStream = new RequestStream(new HttpMultipartSubStream(stream, stream.Position, stream.Length), stream.Length - stream.Position, true);
 
             var request = new Request(requestLine.Method, url, nestedRequestStream, headers, ip);
