@@ -8,7 +8,7 @@
 
     public static class HttpParserStreamExtensions
     {
-        public static Request ReadAsRequest(this Stream stream, string scheme = "http")
+        public static Request ReadAsRequest(this Stream stream, string scheme = "http", string ip = null)
         {
             if (stream == null)
             {
@@ -61,7 +61,7 @@
 
             var nestedRequestStream = new RequestStream(new HttpMultipartSubStream(stream, stream.Position, stream.Length), stream.Length - stream.Position, true);
 
-            var request = new Request(requestLine.Method, url, nestedRequestStream, headers);
+            var request = new Request(requestLine.Method, url, nestedRequestStream, headers, ip);
 
             return request;
         }
